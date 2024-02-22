@@ -1,0 +1,51 @@
+<div class="pagination-container d-flex align-items-center justify-content-around">
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="pages.current_page === 1">
+        <span class="page-link" (click)="goToPage(pages.first_page)">&lt;&lt;</span>
+      </li>
+      <ng-container *ngIf="pages.current_page !== 1">
+        <li class="page-item">
+          <a class="page-link" (click)="goToPage(pages.current_page - 1)">
+            {{ pages.current_page - 1 }}
+          </a>
+        </li>
+      </ng-container>
+      <li class="page-item">
+        <a class="page-link active" (click)="goToPage(pages.current_page)">
+          {{ pages.current_page }}
+        </a>
+      </li>
+      <ng-container *ngIf="pages.current_page !== pages.total_pages">
+        <li class="page-item">
+          <a class="page-link" (click)="goToPage(pages.current_page + 1)">
+            {{ pages.current_page + 1 }}
+          </a>
+        </li>
+      </ng-container>
+      <li class="page-item" [class.disabled]="pages.current_page === pages.total_pages">
+        <span class="page-link" (click)="goToPage(pages.total_pages)">&gt;&gt;</span>
+      </li>
+    </ul>
+  </nav>
+  <div class="page-info">
+    <b><p>{{ pages.current_page }} of {{ pages.total_pages }}</p></b>
+  </div>
+  <div class="input-group small-input mb-3">
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="manualPageInput"
+      min="1"
+      max="{{ pages.total_pages }}"
+    />
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" (click)="goToManualPage()">
+        Go to page
+      </button>
+    </div>
+    <div *ngIf="manualPageError" class="error-message">
+      Please enter a valid page number between 1 and {{ pages.total_pages }}
+    </div>
+  </div>
+</div>

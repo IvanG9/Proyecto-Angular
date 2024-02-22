@@ -1,0 +1,30 @@
+<section class="container text-center text-lg-start">
+  <form [formGroup]="formulario">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1"></span>
+      <input formControlName="username"
+             type="text" class="form-control" placeholder="Username" aria-label="Username"
+             aria-describedby="basic-addon1"
+             [ngClass]="usernameNoValid ? 'is-invalid': 'is-valid'"
+
+      />
+    </div>
+    <div class="input-group mb-3">
+      <input formControlName="full_name" type="text" class="form-control" placeholder="Full name"
+             aria-label="fullname"
+             aria-describedby="basic-addon2"/>
+      <span class="input-group-text" id="basic-addon2"></span>
+    </div>
+    <div class="input-group mb-3">
+      <label for="avatar" class="form-label">Avatar Image</label>
+      <input formControlName="avatar" type="file" class="form-control" id="avatar" accept="image/*" #avatarInput/>
+    </div>
+
+  </form>
+
+  <button (click)="updateAvatarURL()">Update Avatar</button>
+  <button (click)="updateUserInfo()">Update Perfil</button>
+
+  <div>{{formulario.value | json}} </div>
+  <div>{{formulario.get('website')?.valid}} </div>
+</section>
